@@ -1,0 +1,27 @@
+from collections import namedtuple
+
+ColorRGB = namedtuple('ColorRGB', ['r', 'g', 'b'])
+
+WHITE = ColorRGB(255, 255, 255)
+RED = ColorRGB(255, 0, 0)
+ORANGE = ColorRGB(255, 150, 0)
+YELLOW = ColorRGB(255, 255, 0)
+GREEN = ColorRGB(25, 125, 50)
+BLUE = ColorRGB(0, 100, 255)
+PURPLE = ColorRGB(150, 0, 255)
+LIGHT_GRAY = ColorRGB(50, 50, 50)
+GRAY = ColorRGB(100, 100, 100)
+DARK_GRAY = ColorRGB(200, 200, 200)
+BLACK = ColorRGB(0, 0, 0)
+
+PASTEL_RED = ColorRGB(255, 105, 97)
+PASTEL_ORANGE = ColorRGB(255, 229, 180)
+PASTEL_GREEN = ColorRGB(169, 211, 158)
+PASTEL_LIGHT_BLUE = ColorRGB(137, 207, 240)
+
+MILKYWAY = ColorRGB(243, 225, 255)
+GARDENIA = ColorRGB(227, 185, 255)
+HEATHER = ColorRGB(210, 145, 255)
+CROCUS = ColorRGB(186, 85, 255)
+PEONY = ColorRGB(162, 25, 255)
+TWILIGHT = ColorRGB(95, 0, 160)
