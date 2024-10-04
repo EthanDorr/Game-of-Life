@@ -50,6 +50,7 @@ class ConwayGame:
                     self.paused = not self.paused
                 if event.key == pygame.K_r:
                     self.clear_board()
+                    self.paused = True
 
             # Check if the player has their mouse on a tile in any frame
             row, col = self.convert_mouse_pos_to_coords(*mouse_pos)
