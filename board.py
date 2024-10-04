@@ -60,3 +60,4 @@ class Board():
         w_n, w_e = divmod(screen_width - cg.GRID_LINE_THICKNESS, cg.TILE_SIZE.width + cg.GRID_LINE_THICKNESS)
         h_n, h_e = divmod(screen_height - cg.GRID_LINE_THICKNESS, cg.TILE_SIZE.height + cg.GRID_LINE_THICKNESS)
         return ((w_n, h_n), (w_e, h_e))
+    
