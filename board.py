@@ -4,7 +4,8 @@ import pygame
 import config as cg
 
 class Board():
-    def __init__(self, screen_dimensions) -> None:
+    def __init__(self, screen_dimensions: cg.Size) -> None:
+        self.surface = pygame.Surface(screen_dimensions)
         (self.board_width, self.board_height), (self.border_width, self.border_height) = self._calculate_tile_and_border_dimensions(*screen_dimensions)
         self.board = np.zeros((self.board_height, self.board_width), dtype=int)
         self.board_copy = None
@@ -27,15 +28,16 @@ class Board():
 
     def draw(self, surface: pygame.surface.Surface) -> None:
         for row, col in self.tiles_to_draw:
-            surface.fill(self.tile_colors[self.board[row, col]], pygame.Rect(*self._tile_to_pixel(row, col), *cg.TILE_SIZE))
+            self.surface.fill(self.tile_colors[self.board[row, col]], pygame.Rect(*self._tile_to_pixel(row, col), *cg.TILE_SIZE))
+        surface.blit(self.surface, (0,0))
         self.tiles_to_draw.clear()
 
     def resurrect(self, row: int, col: int) -> None:
-        self.board[row, col] |= 0b10
+        self.board[row, col] |= 0b11
         self.tiles_to_draw.update(set([*zip(*map(tuple, self._neighboring_cells(row, col)))]))
     
     def terminate(self, row: int, col: int) -> None:
-        self.board[row, col] &= ~0b10
+        self.board[row, col] &= ~0b11
         self.tiles_to_draw.update(set([*zip(*map(tuple, self._neighboring_cells(row, col)))]))
 
     def clear(self) -> None:
