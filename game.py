@@ -1,5 +1,3 @@
-from typing import Tuple
-
 import pygame
 
 import board, fps
@@ -10,12 +8,11 @@ class ConwayGame:
         pygame.init()
         pygame.display.set_caption(cg.TITLE)
 
-        self.paused = paused
-        self.running = True
-        self.clock = pygame.time.Clock()
         self.canvas = pygame.display.set_mode(cg.SCREEN_RESOLUTION, pygame.FULLSCREEN if cg.FULLSCREEN else pygame.RESIZABLE)
         self.board = board.Board(cg.SCREEN_RESOLUTION)
         self.fps_counter = fps.FPSCounter()
+        self.paused = paused
+        self.running = True
         
         # Draw initial background/grid
         self.canvas.fill(cg.BACKGROUND_COLOR)
@@ -25,7 +22,7 @@ class ConwayGame:
         while self.running:
             self.update()
             self.draw()
-            self.clock.tick(cg.FPS)
+            self.fps_counter.tick(cg.FPS)
         pygame.quit()
 
     def update(self) -> None:
@@ -80,7 +77,7 @@ class ConwayGame:
 
         # FPS counter
         if cg.FPS_COUNTER_ENABLED:
-            self.fps_counter.update(self.clock)
+            self.fps_counter.update()
 
     def draw(self) -> None:
         # Render board
@@ -109,7 +106,7 @@ class ConwayGame:
         for w in range(self.board.border_width // 2, self.canvas.get_width() - self.board.border_width // 2, cg.TILE_SIZE.width + cg.GRID_LINE_THICKNESS):
             pygame.draw.line(self.canvas, cg.GRID_LINE_COLOR, (w, self.board.border_height // 2), (w, self.canvas.get_height() - (self.board.border_height + 1) // 2 - 1), width=cg.GRID_LINE_THICKNESS)
 
-    def convert_mouse_pos_to_coords(self, x: int, y: int) -> Tuple[int | None, int | None]:
+    def convert_mouse_pos_to_coords(self, x: int, y: int) -> tuple[int | None, int | None]:
         row = (y - cg.GRID_LINE_THICKNESS - self.board.border_height // 2 + 1) // (cg.TILE_SIZE.height + cg.GRID_LINE_THICKNESS)
         col = (x - cg.GRID_LINE_THICKNESS - self.board.border_width // 2 + 1) // (cg.TILE_SIZE.width + cg.GRID_LINE_THICKNESS)
         return (row if 0 <= row < self.board.board_height else None, col if 0 <= col < self.board.board_width else None)
