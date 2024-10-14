@@ -31,7 +31,6 @@ class ConwayGame:
     def update(self) -> None:
         # Handle events
         events = pygame.event.get()
-        mouse_pos = pygame.mouse.get_pos()
         for event in events:
             # Check if the player quit the game
             if event.type == pygame.QUIT:
@@ -53,16 +52,17 @@ class ConwayGame:
                     self.paused = True
 
             # Check if the player has their mouse on a tile in any frame
+            mouse_pos = pygame.mouse.get_pos()
             row, col = self.convert_mouse_pos_to_coords(*mouse_pos)
             if row is None or col is None:
                 continue
             # Check for initial click
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Check if LMB clicked
-                if event.button == 1:
+                if event.button == 1 and not pygame.mouse.get_pressed()[2]:
                     self.board.resurrect(row, col)
                 # Check if RMB clicked
-                elif event.button == 3:
+                elif event.button == 3 and not pygame.mouse.get_pressed()[0]:
                     self.board.terminate(row, col)
             # Check for a held mouse click
             elif any(pygame.mouse.get_pressed()):
