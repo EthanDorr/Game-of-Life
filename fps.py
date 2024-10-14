@@ -12,4 +12,5 @@ class FPSCounter:
         self.text = self.font.render(fps, False, cg.FPS_COUNTER_COLOR)
 
     def draw(self, surface: pygame.surface.Surface) -> None:
-        surface.blit(self.text, cg.FPS_COUNTER_POSITION)
+        surface.fill(cg.BACKGROUND_COLOR, self.text.get_rect(topleft=cg.FPS_COUNTER_POSITION))
+        surface.blit(self.text, self.text.get_rect(topleft=cg.FPS_COUNTER_POSITION))
